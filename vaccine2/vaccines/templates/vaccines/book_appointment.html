@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div role="main" class="main">
+            
+        <div class="container py-5 formContainer">
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-color-quaternary font-weight-bold text-capitalize mb-2">التسجيل للتطعيم {{ vaccine.name }}</h3>
+                    <p class="mb-4">{{ vaccine.description }}</p>
+        
+        
+                    <form method="post" id="registerFormAdvanced" class="register-form custom-form-style-1 appear-animation animated appear-animation-visible" data-appear-animation="fadeIn" data-appear-animation-delay="100" novalidate="novalidate">
+                        {% csrf_token %}
+                        <div class="register-form-success alert alert-success d-none mt-4">
+                            <strong>تم بنجاح!</strong>
+                            <p> {{ vaccine.description }}</p>
+                            <p>الرقم المرجعي الخاص بك : (<strong id="passcode"></strong>)<small> الرجاء حفظ الرقم المرجعي
+                                    لامكانية
+                                    الاستعلام الالكتروني</small></p>
+                        </div>
+        
+                        <div class="register-form-error alert alert-danger d-none mt-4">
+                            <strong>خطأ!</strong> حدث خطأ اثناء الارسال.
+                            <span class="mail-error-message text-1 d-block"></span>
+                        </div>
+        
+
+                        <div class="row">
+                            <div class="form-group col-lg-6 to-hide">
+                                <label for="full_name" class="form-label">الايميل </label>
+                                <input type="email" placeholder=" الايميل" value="" data-msg-required="الرجاء تعبئة الايميل " maxlength="100" class="form-control" name="email" id="full_name" required="">
+                            </div>
+                            <div class="form-group col-lg-6 ">
+                                <label class="form-label">تاريخ حجز التطعيم</label>
+                                <input type="date" placeholder="تاريخ حجزالتطعيم" value=""  class="form-control custom-datepicker" name="date" id="date">
+                            </div>
+        
+        
+                        </div>
+        
+
+                        <div class="row">                
+        
+                            <div class="form-group col col-mobile-12">
+                                <label class="form-label ">مركز التطعيم</label>
+                                <div class="custom-select-1">
+                                    <select class="form-select" name="health_center" data-msg-required="الرجاء اختيار مركز التطعيم" required="" aria-invalid="true">
+                                        <option value="">اختر مركز التطعيم</option>
+                                        {% for center in health_centers %}
+{#                                                    <optgroup label="{{ center.name }}">#}
+                                                        <option value="{{ center.id }}">{{ center.name }}</option>
+                                                                               
+                                                    </optgroup>
+                                        {% endfor %}
+                                                   
+                                    </select>
+                                </div>
+                            </div>
+        
+        
+                        </div>
+
+        
+                        <div class="row mt-3">
+                            <div class="form-group col">
+                                <input type="submit" value="التسجيل الان" id="saveBtn" class="btn btn-primary px-4 py-3 text-center text-uppercase font-weight-semibold" data-loading-text="الرجاء الانتظار...">
+                            </div>
+                        </div>
+                    </form>
+         
+        
+                </div>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        const today = new Date();
+        const thirtyDaysFromToday = new Date(today.getTime() + (90 * 24 * 60 * 60 * 1000));
+
+        document.getElementById("date").min = today.toISOString().split("T")[0];
+        document.getElementById("date").max = thirtyDaysFromToday.toISOString().split("T")[0];
+
+    </script>pt>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% block extra_css %}
+        <link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css">
+    {% endblock %}
+
+    <div class="demo-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12 mx-auto">
+                    <div class="p-5 bg-white rounded shadow-lg">
+                        <h3 class="mb-2 text-center pt-5">تسجيل الدخول</h3>
+                        <p class="text-center lead">تسجيل الدخول لمراجعة موعد التطعيمات</p>
+                        <form method="post">
+                            {% csrf_token %}
+                            <label class="font-500">اسم المستخدم</label>
+                            <input name="username" class="form-control form-control-lg mb-3" type="text">
+                            <label class="font-500">كلمة المرور</label>
+                            <input name="password" class="form-control form-control-lg" type="password">
+                            <button class="btn btn-primary btn-lg w-100 shadow-lg" type="submit">تسجيل الدخول</button>
+                        </form>
+                        <div class="text-center pt-4">
+                            <p class="m-0">ليس لديك حساب مسبق؟ <a href="{% url 'vaccines:register' %}"
+                                                                  class="text-dark font-weight-bold">التسجيل</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

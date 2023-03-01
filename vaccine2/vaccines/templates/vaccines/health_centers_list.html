@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th class="text-right">المركز</th>
+                    <th class="text-right">العنوان</th>
+                    <th class="text-right">الايميل</th>
+                    <th class="text-right">رقم الهاتف</th>
+                    <th class="text-right">طلب استفسار</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for health_center in centers %}
+                    <tr>
+                        <td>{{ health_center.name }}</td>
+                        <td>{{ health_center.address }}</td>
+                        <td>{{ health_center.email }}</td>
+                        <td>{{ health_center.phone }}</td>
+                        <td><a href="{% url 'vaccines:send_email' health_center.id %}">استفسار</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

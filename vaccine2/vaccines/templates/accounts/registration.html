@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% block extra_css %}
+        <link rel="stylesheet" href="https://cdn.lineicons.com/2.0/LineIcons.css">
+    {% endblock %}
+
+    <!-- Main -->
+    <main class="bodyCreateAcc">
+        <div class="containerCreateAccount">
+            <div class="title">التسجيل</div>
+            <div class="content">
+                <form method="post" action="#">
+                    {% csrf_token %}
+                    <div class="user-details">
+
+                        <div class="input-box">
+                            <span class="details">اسم المستخدم</span>
+                            <input type="text" name="username" placeholder="اسم المستخدم" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">الايميل</span>
+                            <input type="email" name="email" placeholder="الايميل" required>
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">كلمة المرور</span>
+                            <input type="password" name="password" placeholder="كلمة المرور" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">تأكيد كلمة المرور</span>
+                            <input type="password" name="password" placeholder="تأكيد كلمة المرور" required>
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">اسم الطفل</span>
+                            <input type="text" name="child_name" placeholder="اسم الطفل" required>
+                        </div>
+
+                        <div class="input-box">
+                            <span class="details">تاريخ الميلاد </span>
+                            <input type="date" name="dob" id="dob" placeholder="تاريخ الميلاد" required>
+                        </div>
+                        <div class="input-box">
+                            <span class="details">التطعيمات السابقة</span>
+                            <div class="previous-vaccinations">
+                                {% for checkbox in form.previous_vaccinations %}
+                                    <div class="form-check">
+                                        {{ checkbox }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="button">
+                        <input type="submit" value="التسجيل">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        const today = new Date();
+        today.setFullYear(today.getFullYear() - 5);
+        const thirtyDaysFromToday = new Date();
+
+        document.getElementById("dob").min = today.toISOString().split("T")[0];
+        document.getElementById("dob").max = thirtyDaysFromToday.toISOString().split("T")[0];
+    </script>
+{% endblock %}

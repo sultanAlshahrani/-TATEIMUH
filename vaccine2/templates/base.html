@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ar" dir='rtl'>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}
+    {% endblock %}
+    <title>Index</title>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <h1>
+                <a class="navbar-brand" href="{% url 'vaccines:vaccine_list' %}">تطعميات</a>
+            </h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'vaccines:vaccine_list' %}">الصفحة
+                            الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'vaccines:vaccine_list' %}">قائمة التطعيمات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'vaccines:health-centers' %}">مراكز التطعيم</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'vaccines:logout' %}">تسجيل الخروج</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'vaccines:login' %}">تسجيل الدخول</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'vaccines:register' %}">انشاء حساب جديد</a>
+                        </li>
+                    {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+{% if messages %}
+    <div>
+    {% for message in messages %}
+        {% if message.tags != 'error' %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+        {% endif %}
+    {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<!-- Body -->
+{% block content %}
+
+{% endblock %}
+
+<footer>
+
+    <footer id="footer" class="m-0 bg-color-quaternary">
+        <div class="footer-copyright pt-3 pb-3 container bg-color-quaternary">
+            <div class="row">
+                <div class="col-lg-12 text-center m-0 pb-4">
+                    <p class="text-color-default"><a href="{% url 'vaccines:vaccine_list' %}"> تطعيمات </a>© 2023.
+                        جميع الحقوق محفوظة</p>
+                </div>
+            </div>
+        </div>
+        <!-- Load Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        {% block extra_js %}
+        {% endblock %}
+
+    </footer>
+</body>
+</html>

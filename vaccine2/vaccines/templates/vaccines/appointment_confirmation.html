@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}تأكيد الموعد{% endblock %}
+
+{% block content %}
+
+  <div class="card my-4">
+    <div class="card-body text-right">
+      <h3 class="card-title">تم تأكيد الموعد</h3>
+      <p class="card-text">تم تأكيد موعدك ل {{ vaccine.name }} في {{ appointment.date }}.</p>
+      <p class="card-text">اسم الأب: {{ appointment.father.username }}</p>
+      <p class="card-text">اسم الطفل: {{ appointment.father.child_name }}</p>
+    </div>
+  </div>
+{% endblock %}

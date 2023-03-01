@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="card bg-light mb-4">
+      <div class="card-body">
+        <h1 class="text-center">{{ vaccine.name }}</h1>
+        <p class="text-right text-muted">التفاصيل:</p>
+        <ul class="list-unstyled">
+          <li class="text-right text-muted"> اسم اللقاح: {{ vaccine.name }}</li>
+          <li class="text-right text-muted">تاريخ الزيارة : {{ vaccine.visit }}</li>
+          <li class="text-right text-muted">الوصف: {{ vaccine.description }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
